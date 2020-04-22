@@ -5,10 +5,12 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 import {Actions} from 'react-native-router-flux';
 import {Avatar} from 'react-native-paper';
-
+import Firebase from './Config';
+//import {db} from './Config';
 // class Test extends React.Component {
 //   static propTypes = {
 //     items: propTypes.array.isRequired,
@@ -31,7 +33,7 @@ import {Avatar} from 'react-native-paper';
 export default class Login extends React.Component {
   state = {
     names: [],
-    x: '',
+    userName: '',
     email: '',
     password: '',
     items: [],
@@ -61,23 +63,27 @@ export default class Login extends React.Component {
   }
 
   goToDetails = () => {
-    // db.ref('/-M4Pv6pizOAXrU4S7Lbj/-M4Twa55LdRt3Jltum5G/list/list/users').on(
-    //   'value',
-    //   querySnapShot => {
-    //     let data = querySnapShot.val() ? querySnapShot.val() : {};
-    //     let name = {...data};
-    //     this.setState({
-    //       names: data,
-    //     });
-    //   },
-    // );
-    // this.setState({
-    //   x: this.state.names.toString(),
-    // });
-    // db.ref('/').push({
-    //   name: 'Mark',
-    // });
-    Actions.Details();
+    let useremail = this.state.email;
+    if (this.state.email === '' && this.state.password === '') {
+      Alert.alert('Enter details to signin!');
+    } else {
+      Firebase.auth()
+        .signInWithEmailAndPassword(this.state.email, this.state.password)
+        .then(res => {
+          console.log(res);
+
+          Alert.alert('User logged-in successfully!');
+          this.setState({
+            email: '',
+            password: '',
+          });
+          //this.props.navigation.navigate('Dashboard')
+          Actions.Details({usname: res.user.displayName});
+        })
+        .catch(error => Alert.alert('Failed to login'));
+    }
+
+    //Actions.Details({usname: this.state.email});
   };
 
   goToSignIn = () => {

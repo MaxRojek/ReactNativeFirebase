@@ -5,9 +5,11 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 import {Actions} from 'react-native-router-flux';
 import {Avatar} from 'react-native-paper';
+import Firebase from './Config';
 import {db} from './Config';
 
 export default class Login extends React.Component {
@@ -21,11 +23,30 @@ export default class Login extends React.Component {
     let Email = this.state.email;
     let Name = this.state.name;
     let Password = this.state.password;
+
     // db.ref('/user/').push({
     //   Email,
     //   Name,
     //   Password,
     // });
+
+    if (Email === '' && Password === '') {
+    } else {
+      // this.setState({
+      //   isLoading: true,
+      // });
+      Firebase.auth()
+        .createUserWithEmailAndPassword(Email, Password)
+        .then(res => {
+          res.user.updateProfile({
+            displayName: Name,
+          });
+          console.log('User registered successfully!');
+          Alert.alert('User registered successfully!')
+          Actions.Details({usname: Name});
+        })
+        .catch(error => this.setState({errorMessage: error.message}));
+    }
   };
   render() {
     return (

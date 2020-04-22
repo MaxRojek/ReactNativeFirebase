@@ -66,7 +66,7 @@ export default class Details extends React.Component {
   render() {
     return (
       <SafeAreaView style={styles.container}>
-        <Title>Welcome !</Title>
+        <Title>Welcome !{this.props.usname}</Title>
         <FlatList
           data={DATA}
           renderItem={({item}) => (
