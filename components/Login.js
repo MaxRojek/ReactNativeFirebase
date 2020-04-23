@@ -10,7 +10,7 @@ import {
 import {Actions} from 'react-native-router-flux';
 import {Avatar} from 'react-native-paper';
 import Firebase from './Config';
-//import {db} from './Config';
+import {db} from './Config';
 // class Test extends React.Component {
 //   static propTypes = {
 //     items: propTypes.array.isRequired,
@@ -63,6 +63,10 @@ export default class Login extends React.Component {
   }
 
   goToDetails = () => {
+    
+    
+   
+   
     let useremail = this.state.email;
     if (this.state.email === '' && this.state.password === '') {
       Alert.alert('Enter details to signin!');
@@ -72,7 +76,7 @@ export default class Login extends React.Component {
         .then(res => {
           console.log(res);
 
-          Alert.alert('User logged-in successfully!');
+          Alert.alert('User ' +res.user.displayName + ' logged-in successfully!');
           this.setState({
             email: '',
             password: '',

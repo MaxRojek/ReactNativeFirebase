@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, View, StyleSheet,SafeAreaView } from 'react-native';
 import {Actions} from 'react-native-router-flux';
-import { List, Checkbox } from 'react-native-paper';
+import { List, Checkbox, Title } from 'react-native-paper';
 
 // function Greeting(props) {
 //   return (
@@ -11,9 +11,10 @@ import { List, Checkbox } from 'react-native-paper';
 //   );
 // }
 
-function Series() {
+function Series(props) {
   return (
     <SafeAreaView style={styles.container}>
+       <Title>Welcome {props.usname} !</Title>
       <MyComponent/>
     </SafeAreaView>
   );

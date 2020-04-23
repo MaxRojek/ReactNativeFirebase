@@ -12,29 +12,36 @@ import {Avatar} from 'react-native-paper';
 import Firebase from './Config';
 import {db} from './Config';
 
-export default class Login extends React.Component {
+export default class Signin extends React.Component {
   state = {
     email: '',
     name: '',
     password: '',
   };
 
+  createInDB = (name) =>
+  {
+    const path = '/user/'
+    
+    let endpoint = path.concat(name);
+    let Movies = ['movie'];
+    let Games = ["game"];
+    let Books = ['book']
+    let Series = ['series'];
+    Firebase.database().ref(endpoint).set({
+      Movies, Games, Books, Series
+     });
+  }
+  
+  
   register = () => {
     let Email = this.state.email;
     let Name = this.state.name;
     let Password = this.state.password;
-
-    // db.ref('/user/').push({
-    //   Email,
-    //   Name,
-    //   Password,
-    // });
-
+    
     if (Email === '' && Password === '') {
     } else {
-      // this.setState({
-      //   isLoading: true,
-      // });
+      
       Firebase.auth()
         .createUserWithEmailAndPassword(Email, Password)
         .then(res => {
@@ -47,6 +54,7 @@ export default class Login extends React.Component {
         })
         .catch(error => this.setState({errorMessage: error.message}));
     }
+    this.createInDB(Name)
   };
   render() {
     return (

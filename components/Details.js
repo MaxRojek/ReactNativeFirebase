@@ -39,19 +39,19 @@ const DATA = [
   },
 ];
 
-function Item({title, icon, card}) {
+function Item({title, icon, card, username}) {
   const Route = x => {
     if (x == 'Movies') {
-      Actions.Movies();
+      Actions.Movies({usname: username});
     }
     if (x == 'Games') {
-      Actions.Games();
+      Actions.Games({usname: username});
     }
     if (x == 'Books') {
-      Actions.Books();
+      Actions.Books({usname: username});
     }
     if (x == 'Series') {
-      Actions.Series();
+      Actions.Series({usname: username});
     }
   };
   return (
@@ -66,11 +66,11 @@ export default class Details extends React.Component {
   render() {
     return (
       <SafeAreaView style={styles.container}>
-        <Title>Welcome !{this.props.usname}</Title>
+        <Title>Welcome {this.props.usname} !</Title>
         <FlatList
           data={DATA}
           renderItem={({item}) => (
-            <Item title={item.title} icon={item.icon} card={item.component} />
+            <Item title={item.title} icon={item.icon} card={item.component} username={this.props.usname } />
           )}
           keyExtractor={item => item.id}
         />
