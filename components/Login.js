@@ -113,6 +113,7 @@ export default class Login extends React.Component {
         </View>
         <View style={styles.inputView}>
           <TextInput
+            secureTextEntry={true}
             style={styles.inputText}
             placeholder="Password"
             placeholderTextColor="#003f5c"
@@ -140,7 +141,7 @@ const theme = {
   roundness: 2,
 
   colors: {
-    primary: '#fb5b5a',
+    primary: '#3c6a89',
     accent: '#f1c40f',
   },
 };
@@ -152,10 +153,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  loginText:{
+color:'white'
+  },
   logo: {
     fontWeight: 'bold',
     fontSize: 50,
-    color: '#fb5b5a',
+    color: '#3c6a89',
     marginBottom: 40,
   },
   inputView: {
@@ -177,13 +181,14 @@ const styles = StyleSheet.create({
   },
   loginBtn: {
     width: '80%',
-    backgroundColor: '#fb5b5a',
+    backgroundColor: '#3c6a89',
     borderRadius: 25,
     height: 50,
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: 40,
     marginBottom: 10,
+    color: 'white'
   },
   icon: {
     marginBottom: 20,

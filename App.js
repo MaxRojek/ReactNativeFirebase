@@ -14,6 +14,7 @@ import Books from './components/Books.js';
 import Games from './components/Games.js';
 import Series from './components/Series.js';
 import SignIn from './components/SignIn.js';
+import AddMovies from './components/AddMovie.js';
 
 export default class App extends React.Component {
   render() {
@@ -27,6 +28,7 @@ export default class App extends React.Component {
           <Scene key="Games" component={Games} title="Games" />
           <Scene key="Series" component={Series} title="Series" />
           <Scene key="SignIn" component={SignIn} title="SignIn" />
+          <Scene key="AddMovies" component={AddMovies} title="AddMovies" />
         </Scene>
       </Router>
     );

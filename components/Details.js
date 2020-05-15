@@ -10,6 +10,8 @@ import {
   Text,
   TouchableOpacity,
 } from 'react-native';
+import { List } from 'react-native-paper';
+
 import {Avatar} from 'react-native-paper';
 
 const DATA = [
@@ -66,7 +68,13 @@ export default class Details extends React.Component {
   render() {
     return (
       <SafeAreaView style={styles.container}>
-        <Title>Welcome {this.props.usname} !</Title>
+        {/* <Title>Welcome {this.props.usname} !</Title> */}
+        <List.Item
+        style={{backgroundColor:'#3c6a89',}}
+    title={this.props.usname}
+    description=""
+    left={props => <List.Icon   {...props} icon="account-multiple-check"  />}
+  />
         <FlatList
           data={DATA}
           renderItem={({item}) => (
@@ -82,7 +90,7 @@ export default class Details extends React.Component {
 const theme = {
   roundness: 2,
   colors: {
-    primary: '#003f5c',
+    primary: '#3c6a89',
     accent: '#f1c40f',
   },
 };
@@ -93,7 +101,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#003f5c',
   },
   item: {
-    backgroundColor: '#fb5b5a',
+    backgroundColor: '#3c6a89',
     padding: 20,
     marginVertical: 8,
     marginHorizontal: 16,
@@ -101,5 +109,6 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 32,
+    color:'white'
   },
 });

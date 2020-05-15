@@ -103,7 +103,7 @@ const theme = {
   roundness: 2,
 
   colors: {
-    primary: '#fb5b5a',
+    primary: '#3c6a89',
     accent: '#f1c40f',
   },
 };
@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
   logo: {
     fontWeight: 'bold',
     fontSize: 50,
-    color: '#fb5b5a',
+    color: '#3c6a89',
     marginBottom: 40,
   },
   inputView: {
@@ -140,13 +140,14 @@ const styles = StyleSheet.create({
   },
   loginBtn: {
     width: '80%',
-    backgroundColor: '#fb5b5a',
+    backgroundColor: '#3c6a89',
     borderRadius: 25,
     height: 50,
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: 40,
     marginBottom: 10,
+    
   },
   icon: {
     marginBottom: 20,
