@@ -12,7 +12,6 @@ import {Avatar} from 'react-native-paper';
 import Firebase from './Config';
 import {db} from './Config';
 
-
 export default class Login extends React.Component {
   state = {
     names: [],
@@ -22,10 +21,7 @@ export default class Login extends React.Component {
     items: [],
   };
 
-  
-
   goToDetails = () => {
-     
     let useremail = this.state.email;
     if (this.state.email === '' && this.state.password === '') {
       Alert.alert('Enter details to signin!');
@@ -35,7 +31,9 @@ export default class Login extends React.Component {
         .then(res => {
           console.log(res);
 
-          Alert.alert('User ' +res.user.displayName + ' logged-in successfully!');
+          Alert.alert(
+            'User ' + res.user.displayName + ' logged-in successfully!',
+          );
           this.setState({
             email: '',
             password: '',
@@ -112,8 +110,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  loginText:{
-color:'white'
+  loginText: {
+    color: 'white',
   },
   logo: {
     fontWeight: 'bold',
@@ -124,7 +122,7 @@ color:'white'
   inputView: {
     width: '80%',
     backgroundColor: '#465881',
-    borderRadius: 25,
+    borderRadius: 5,
     height: 50,
     marginBottom: 20,
     justifyContent: 'center',
@@ -141,13 +139,13 @@ color:'white'
   loginBtn: {
     width: '80%',
     backgroundColor: '#3c6a89',
-    borderRadius: 25,
+    borderRadius: 5,
     height: 50,
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: 40,
     marginBottom: 10,
-    color: 'white'
+    color: 'white',
   },
   icon: {
     marginBottom: 20,
