@@ -126,13 +126,12 @@ class AddMovies extends React.Component {
           ref={'modal1'}
           swipeToClose={this.state.swipeToClose}>
           <Text style={styles.text}>
-            Oceń film + {this.state.pickedMovietitle}
+            Oceń film => {this.state.pickedMovietitle}
           </Text>
-          <Button
-            title="close"
-            onPress={() => this.refs.modal1.close()}
-            style={styles.btn}
-          />
+          
+          <TouchableOpacity style={styles.loginBtn} onPress={this.sendMovie}>
+          <Text style={{color:'white'}}>ok</Text>
+        </TouchableOpacity>
         </Modal>
       </>
     );
@@ -226,6 +225,17 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   /////////////// style odo modala
+  loginBtn: {
+    width: '80%',
+    backgroundColor: '#3c6a89',
+    borderRadius: 5,
+    height: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 40,
+    marginBottom: 10,
+    color: 'white',
+  },
 
   wrapper: {
     paddingTop: 50,
