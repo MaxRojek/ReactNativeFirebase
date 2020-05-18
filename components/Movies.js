@@ -22,6 +22,7 @@ class MyComponent extends React.Component {
     super(props);
  
     this.state = {
+      username: this.props.username,
       loading: false,
       movies: [],
     };
@@ -31,42 +32,7 @@ class MyComponent extends React.Component {
   componentDidMount() {
     
     const path = '/user/' + this.props.username + '/Movies' ;
-    // + MOvies
-    // Firebase.database().ref(path).once('value', function(snapshot) {
-    //   let moviesList = [];
-    //   snapshot.forEach(function(childSnapshot) {
-    //     var childKey = childSnapshot.key;
-    //     var childData = childSnapshot.val();
-        
-    //     moviesList.push(childKey)
-    //   });
-    //   //console.log(moviesList)
-    //   moviesList1=moviesList
     
-    //   console.log("tab2 "+ moviesList1[0]) 
-    // });
-    
-    // console.log("tab111 "+ moviesList1[0])
-    // // this.setState({
-    // //   expanded: !this.state.expanded
-    // // });
-  
-  
-//     var query = Firebase.database().ref(path);
-// query.once("value")
-//   .then(function(snapshot) {
-//     snapshot.forEach(function(childSnapshot) {
-      
-//       var key = childSnapshot.key;
-    
-//       var childData = childSnapshot.val();
-//       //console.log(childData)
-//       moviesList1.push(key)
-      
-//   });
-//   this.setState({ movies: moviesList1 });
-// });
-  
 var query = Firebase.database().ref(path);
 query.once("value")
       .then(snapshot => {
@@ -77,13 +43,13 @@ query.once("value")
           item.key = childSnapshot.key;
            // console.log(item)
           movies.push({
-            id: item.id,
             title: item.title,
-            actor: item.person,
+            uri: item.uri,
+            year: item.year,
            
           });
         });
-//console.log("filmy "+movies)
+
         this.setState({ movies });
        
       })
@@ -111,22 +77,31 @@ _handleUpdate = () =>{
      
       <ScrollView style={styles.scrollView}>
  <List.Item
-    onPress={() => Actions.AddMovies()}
+    onPress={() => Actions.AddMovies({username: this.state.username})}
     style={{backgroundColor:'#3c6a89',}}
-    title="Add movie"
+    title="Add Movie"
     description=""
     left={props => <List.Icon   {...props} icon="playlist-plus"  />}
   />
 
-        {this.state.movies.map(movie => (
+        {this.state.movies.map((item, index) => (
             
             <Moviedetails
-              key={movie.id}
-              id={movie.id}
-              name={movie.actor}
-              title={movie.title}
+            key={index}
+            title={item.title}
+            image={item.uri}
+           
+            date={item.year}
             />
           ))}
+
+
+
+
+
+
+
+          
 
 </ScrollView>
      
@@ -137,32 +112,18 @@ const LeftContent = props => <Avatar.Icon theme={theme} {...props} icon="folder"
 
 function Moviedetails(props) {
   return (
-//  <List.Accordion
-      
-//       theme={theme}
-//       style={styles.item}
-//       title={props.title}
-//       left={props => <List.Icon {...props} icon="more" />}
-//     >
-//       <List.Item style={styles.item2} title={props.name} right={props => <Text> Główna rola</Text>} />
-     
-//   <List.Item style={styles.item2} title={props.name} right={props => <Text> id filmu</Text>} />
-     
-//     </List.Accordion> 
-
-  
 <Card style={styles.item2} theme={theme}>
-<Card.Title title={props.title} subtitle={props.name} left={LeftContent} />
-<Card.Content>
-  <Title>Card title</Title>
-  <Paragraph>{props.name}</Paragraph>
-</Card.Content>
-<Card.Cover source={{ uri: 'https://picsum.photos/700' }} />
-<Card.Actions>
-  <Button theme={theme}>Cancel</Button>
-  <Button theme={theme}>Ok</Button>
-</Card.Actions>
-</Card>
+  <Card.Title title={props.title} subtitle={props.date} left={LeftContent} />
+  <Card.Content>
+    {/* <Title>Tytuł</Title>
+    <Paragraph>Paragraf</Paragraph> */}
+  </Card.Content>
+  <Card.Cover style={{width: 340, height: 400}} source={{ uri: props.image }} />
+  <Card.Actions>
+   
+    <Button theme={theme}>Ok</Button>
+  </Card.Actions>
+  </Card>
   
   
     )
@@ -183,7 +144,7 @@ const styles = StyleSheet.create({
   },
   item2: {
     backgroundColor: '#3c6a89',
-    borderRadius: 20,
+    borderRadius: 10,
     marginVertical: 8,
     marginHorizontal: 10,
   },

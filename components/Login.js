@@ -11,24 +11,7 @@ import {Actions} from 'react-native-router-flux';
 import {Avatar} from 'react-native-paper';
 import Firebase from './Config';
 import {db} from './Config';
-// class Test extends React.Component {
-//   static propTypes = {
-//     items: propTypes.array.isRequired,
-//   };
-//   render() {
-//     return (
-//       <View style={styles.itemsList}>
-//         {this.props.items.map((item, index) => {
-//           return (
-//             <View key={index}>
-//               <Text style={styles.itemtext}>{item.name}</Text>
-//             </View>
-//           );
-//         })}
-//       </View>
-//     );
-//   }
-// }
+
 
 export default class Login extends React.Component {
   state = {
@@ -39,34 +22,10 @@ export default class Login extends React.Component {
     items: [],
   };
 
-  componentDidMount() {
-    // db.ref('/-M4Pv6pizOAXrU4S7Lbj/users/user').on('value', querySnapShot => {
-    //   let data = querySnapShot.val() ? querySnapShot.val() : {};
-    //   let name = data;
-    //
-    // });
-    //
-    //
-    // const obj = this.state.names;
-    // db.ref('/-M4Pv6pizOAXrU4S7Lbj/users/user').push({
-    //   obj,
-    // });
-    // itemsRef.on('value', SnapShot => {
-    //   let data = SnapShot.val();
-    //   let items = Object.values(data);
-    //   this.setState({items});
-    // });
-    // for (let i = 0; i < this.state.items.length; i++) {
-    //   this.state.number + i;
-    // }
-    // this.setState({number: this.state.items.length});
-  }
+  
 
   goToDetails = () => {
-    
-    
-   
-   
+     
     let useremail = this.state.email;
     if (this.state.email === '' && this.state.password === '') {
       Alert.alert('Enter details to signin!');

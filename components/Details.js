@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 import { List } from 'react-native-paper';
 
-import {Avatar} from 'react-native-paper';
+import {Avatar, Card, IconButton} from 'react-native-paper';
 
 const DATA = [
   {
@@ -58,8 +58,13 @@ function Item({title, icon, card, username}) {
   };
   return (
     <TouchableOpacity style={styles.item} onPress={() => Route(card)}>
-      <Avatar.Icon size={40} theme={theme} icon={icon} />
-      <Text style={styles.title}>{title}</Text>
+      {/* <Avatar.Icon size={40} theme={theme} icon={icon} />
+      <Text style={styles.title}>{title}</Text> */}
+      <Card.Title
+    title={title}
+    subtitle=""
+    left={(props) => <Avatar.Icon  theme={theme} {...props} size={60} icon={icon} />} 
+  />
     </TouchableOpacity>
   );
 }
@@ -89,11 +94,13 @@ export default class Details extends React.Component {
 
 const theme = {
   roundness: 2,
+  
   colors: {
     primary: '#3c6a89',
     accent: '#f1c40f',
   },
 };
+
 
 const styles = StyleSheet.create({
   container: {
