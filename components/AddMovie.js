@@ -24,7 +24,7 @@ import {
 import Modal from 'react-native-modalbox';
 //import Slider from 'react-native-slider';
 import Firebase from './Config';
-import {database} from 'firebase';
+import InputSpinner from 'react-native-input-spinner';
 
 var screen = Dimensions.get('window');
 class AddMovies extends React.Component {
@@ -35,7 +35,7 @@ class AddMovies extends React.Component {
       pickedMovietitle: '',
       pickedMovieyear: '',
       pickedMovieimage: '',
-      pickedMovierate: '',
+      pickedMovierate: 0,
       modalVisible: false,
       username: this.props.username,
       loading: false,
@@ -128,7 +128,15 @@ class AddMovies extends React.Component {
           <Text style={styles.text}>
             Oceń film => {this.state.pickedMovietitle}
           </Text>
-          
+          <InputSpinner
+	max={5}
+	min={1}
+	step={1}
+	colorMax={"#f04048"}
+	colorMin={"#40c5f4"}
+	value={this.state.pickedMovierate}
+	onChange={num => this.setState({pickedMovierate: num})}></InputSpinner>
+         
           <TouchableOpacity style={styles.loginBtn} onPress={this.sendMovie}>
           <Text style={{color:'white'}}>ok</Text>
         </TouchableOpacity>
