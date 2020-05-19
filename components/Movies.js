@@ -1,8 +1,8 @@
 import React from 'react';
-import { Text, View, StyleSheet,SafeAreaView, ScrollView, TouchableOpacity } from 'react-native';
+import { Text, View, StyleSheet,SafeAreaView, ScrollView, TouchableOpacity, Image } from 'react-native';
 import {Actions} from 'react-native-router-flux';
 import { List, Checkbox, Title } from 'react-native-paper';
-import { Avatar, Button, Card, Paragraph,Badge } from 'react-native-paper';
+import { Avatar, Button, Card, Paragraph,Badge, IconButton } from 'react-native-paper';
 import Firebase from './Config';
 import { database } from 'firebase';
 import Modal from 'react-native-modalbox';
@@ -25,6 +25,8 @@ class MyComponent extends React.Component {
       username: this.props.username,
       loading: false,
       movies: [],
+      detailsMovietitle:'',
+    detailsMovie:[],
     };
   }
   
@@ -63,16 +65,35 @@ query.once("value")
   
   
 
-handleDetails = () =>{
-  console.log("alert")
-  //this.refs.modal1.open();
+moreDetails = (text,year) =>{
+  
+  const pass = text+"cos"
+  console.log(pass)
+  this.setState({ detailsMovietitle: text });
+  this.refs.modal1.open();
+  
+  
+  const url =
+  'http://www.omdbapi.com/?apikey=15fe2365&t=title&y-year&plot=full';
+let link = url.replace('title', text);
+link = link.replace('year', year);
+
+fetch(link)
+  .then(response => response.json())
+  .then(responseData => {
+    this.setState({detailsMovie: responseData});
+  })
+  .catch(error => this.setState({error}));
+
+  this.refs.modal1.open();
+
 }
 
 
 
   render() {
     return (
-     
+     <>
       <ScrollView style={styles.scrollView}>
  <List.Item
     onPress={() => Actions.AddMovies({username: this.state.username})}
@@ -84,7 +105,7 @@ handleDetails = () =>{
 
         {this.state.movies.map((item, index) => (
             
-           <>
+       
             <Moviedetails
             key={index}
             title={item.title}
@@ -92,31 +113,36 @@ handleDetails = () =>{
            
             date={item.year}
             rate={item.rate}
-            details={this.handleDetails}
+            more={() => this.moreDetails(item.title,item.year)}
             />
               
-              <Modal
-          style={[styles.modal, styles.modal1]}
-          ref={'modal1'}
-          swipeToClose={this.state.swipeToClose}>
-          <Text style={styles.text}>
-            Oceń film => 
-          </Text>
-          
-         
-          {/* <TouchableOpacity style={styles.loginBtn} onPress={this.refs.modal1.close()}>
-          <Text style={{color:'white'}}>ok</Text>
-        </TouchableOpacity> */}
-        </Modal>            
-</>
+            
+
           ))}
 
 </ScrollView>
+<Modal
+          style={[styles.modal, styles.modal1]}
+          ref={'modal1'}
+          swipeToClose={this.state.swipeToClose}>
+         
+         
+         
+       
+
+
+        <View style={styles.imgContainer}>
+        <Image style={styles.image} source={{ uri: this.state.detailsMovie.Poster }}  />
+    </View>
+  
+  
+        </Modal>
      
+     </>
     );
   }
 }
-const LeftContent = props => <Avatar.Icon theme={theme2} {...props} icon="dots-vertical" />
+//const LeftContent = props => <Avatar.Icon theme={theme2} {...props} icon="dots-vertical" />
 
 function Moviedetails(props) {
   
@@ -128,23 +154,38 @@ function Moviedetails(props) {
         );
     }
    
-
-  
   return (
-<Card style={styles.item2} theme={theme}>
-  <Card.Title title={props.title} subtitle={props.date} left={props => <Button theme={theme3} icon="dots-vertical" mode="text" onPress={() => console.log('Pressed')}>
-    
-  </Button>} />
+<Card style={styles.item2}  theme={theme}>
+  
+  <Card.Title title={props.title}  subtitle={props.date} left={props =><IconButton
+              icon="movie-outline"
+              color={'black'}
+              size={30}
+             
+           
+            /> } />
+            
   <Card.Content>
-    {/* <Title>Tytuł</Title>
-    <Paragraph>Paragraf</Paragraph> */}
+  <Button style={{backgroundColor:'#003f5c', marginVertical:10}} color={'white'} mode="Contained " onPress={props.more}>
+    Read more
+  </Button>
+  
   </Card.Content>
   <Card.Cover style={{width: 330, height: 400}} source={{ uri: props.image }} />
   <Card.Actions>
   
   {fields}
   <Text style={styles.txt}>{props.rate}/5</Text>
+  {/* <IconButton
+              icon="dots-vertical"
+              color={'white'}
+              size={30}
+             onPress={props.more}
+           
+            /> */}
+     
   </Card.Actions>
+ 
   </Card>
   
   
@@ -156,6 +197,19 @@ function Moviedetails(props) {
 
 
 const styles = StyleSheet.create({
+  
+  
+  imgContainer: {
+    flexDirection: 'row',
+    backgroundColor:"black"
+},
+image: {
+    resizeMode: 'contain',
+    flex: 1,
+    aspectRatio: 0.6, // Your aspect ratio
+    width: '100%'
+},
+  /////////////
   container: {
     flex: 1,
     backgroundColor: '#003f5c',
@@ -168,6 +222,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   item2: {
+    flex: 1,
     backgroundColor: '#3c6a89',
     borderRadius: 10,
     marginVertical: 8,
@@ -182,7 +237,14 @@ const styles = StyleSheet.create({
    
     
   },
-
+  scrollView2: {
+  
+    // flex: 1,
+    // justifyContent: 'center',
+    // alignItems: 'center',
+    backgroundColor: '#003f5c',
+    
+  },
   txt: {
     fontSize: 32,
     color:'#ffffff',
@@ -206,7 +268,8 @@ const styles = StyleSheet.create({
   },
 
   modal: {
-    justifyContent: 'center',
+    flex: 1,
+    justifyContent: 'flex-start',
     alignItems: 'center',
     backgroundColor: '#003f5c',
   },

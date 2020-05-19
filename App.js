@@ -21,13 +21,14 @@ export default class App extends React.Component {
     return (
       <Router>
         <Scene key="root">
-          <Scene key="Login" component={Login} title="Login" initial={true} />
-          <Scene key="Details" component={Details} title="Details" />
-          <Scene key="Movies" component={Movies} title="Movies" />
-          <Scene key="Books" component={Books} title="Books" />
-          <Scene key="Games" component={Games} title="Games" />
-          <Scene key="Series" component={Series} title="Series" />
-          <Scene key="SignIn" component={SignIn} title="SignIn" />
+          <Scene key="Login" component={Login}  navigationBarStyle={{ backgroundColor: '#3c6a89' }} title="Login" initial={true} />
+          <Scene key="SignIn" navigationBarStyle={{ backgroundColor: '#3c6a89' }} component={SignIn} title="SignIn" />
+          <Scene key="Details"  hideNavBar={true} component={Details} title="Details" />
+          <Scene key="Movies" navigationBarStyle={{ backgroundColor: '#3c6a89' }} component={Movies} title="Movies" />
+          <Scene key="Books" navigationBarStyle={{ backgroundColor: '#3c6a89' }} component={Books} title="Books" />
+          <Scene key="Games" navigationBarStyle={{ backgroundColor: '#3c6a89' }} component={Games} title="Games" />
+          <Scene key="Series" navigationBarStyle={{ backgroundColor: '#3c6a89' }} component={Series} title="Series" />
+        
           <Scene key="AddMovies" component={AddMovies} title="AddMovies" />
         </Scene>
       </Router>
