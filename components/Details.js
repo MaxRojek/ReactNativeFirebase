@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {Actions} from 'react-native-router-flux';
-import {Title} from 'react-native-paper';
+import {Title, DarkTheme} from 'react-native-paper';
 import {
   SafeAreaView,
   View,
@@ -10,32 +10,32 @@ import {
   Text,
   TouchableOpacity,
 } from 'react-native';
-import { List } from 'react-native-paper';
+import { List, Colors } from 'react-native-paper';
 
 import {Avatar, Card, IconButton} from 'react-native-paper';
 
 const DATA = [
   {
     id: '1',
-    title: 'Filmy',
+    title: 'Movies',
     icon: 'movie',
     component: 'Movies',
   },
   {
     id: '2',
-    title: 'Seriale',
+    title: 'Series',
     icon: 'library-movie',
     component: 'Series',
   },
   {
     id: '3',
-    title: 'Gry',
+    title: 'Games',
     icon: 'gamepad-variant',
     component: 'Games',
   },
   {
     id: '4',
-    title: 'Książki',
+    title: 'Books',
     icon: 'book-open-page-variant',
     component: 'Books',
   },
@@ -61,7 +61,8 @@ function Item({title, icon, card, username}) {
       {/* <Avatar.Icon size={40} theme={theme} icon={icon} />
       <Text style={styles.title}>{title}</Text> */}
       <Card.Title
-    title={title}
+     
+    title={<Text style={{color:'white'}}> {title} </Text>}
     subtitle=""
     left={(props) => <Avatar.Icon  theme={theme} {...props} size={60} icon={icon} />} 
   />
@@ -76,7 +77,7 @@ export default class Details extends React.Component {
         {/* <Title>Welcome {this.props.usname} !</Title> */}
         <List.Item
         style={{backgroundColor:'#3c6a89',}}
-    title={this.props.usname}
+    title={<Text style={{color:'white'}}> {this.props.usname} </Text>}
     description=""
     left={props => <List.Icon   {...props} icon="account-multiple-check"  />}
   />
@@ -100,7 +101,14 @@ const theme = {
     accent: '#f1c40f',
   },
 };
-
+const theme2 = {
+  
+  
+  colors: {
+    primary: '#3c6a89',
+    accent: '#f1c40f',
+  },
+};
 
 const styles = StyleSheet.create({
   container: {

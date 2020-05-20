@@ -11,8 +11,7 @@ import {
   Image,
   TouchableHighlight,
 } from 'react-native';
-import {Actions} from 'react-native-router-flux';
-import {Title} from 'react-native-paper';
+
 import {
   Avatar,
   Button,
@@ -27,7 +26,7 @@ import Firebase from './Config';
 import InputSpinner from 'react-native-input-spinner';
 
 var screen = Dimensions.get('window');
-class AddMovies extends React.Component {
+class AddSeries extends React.Component {
   constructor(props) {
     super(props);
 
@@ -51,7 +50,7 @@ class AddMovies extends React.Component {
 
   fetchfromImdb = () => {
     const url =
-      'http://www.omdbapi.com/?apikey=15fe2365&s=title&plot=full&type=movie';
+      'http://www.omdbapi.com/?apikey=15fe2365&s=title&plot=short&type=series';
     let link = url.replace('title', this.state.movieTitle);
     return fetch(link)
       .then(response => response.json())
@@ -62,7 +61,7 @@ class AddMovies extends React.Component {
   };
 
   sendMovie = () => {
-    const path = '/user/' + this.props.username + '/Movies';
+    const path = '/user/' + this.props.username + '/Series';
     Firebase.database()
       .ref(path)
       .push({
@@ -93,7 +92,7 @@ class AddMovies extends React.Component {
             <View style={styles.inputView}>
               <TextInput
                 style={styles.inputText}
-                placeholder="Movie title"
+                placeholder="Series title"
                 placeholderTextColor="#003f5c"
                 onChangeText={text => this.setState({movieTitle: text})}
               />
@@ -108,7 +107,7 @@ class AddMovies extends React.Component {
           </View>
           <View>
             {this.state.movies.map((item, index) => (
-              <Moviedetails
+              <Seriesdetails
                 key={index}
                 title={item.Title}
                 image={item.Poster}
@@ -150,7 +149,7 @@ const LeftContent = props => (
   <Avatar.Icon theme={theme} color={'black'} {...props} icon="movie-outline" />
 );
 
-function Moviedetails(props) {
+function Seriesdetails(props) {
   return (
     <Card style={styles.item2} theme={theme}>
       <Card.Title
@@ -288,4 +287,4 @@ const theme = {
   },
 };
 
-export default AddMovies;
+export default AddSeries;

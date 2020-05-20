@@ -13,10 +13,14 @@ import { List, Checkbox, Title } from 'react-native-paper';
 
 function Games(props) {
   return (
+    <>
+    
     <SafeAreaView style={styles.container}>
-       <Title>Welcome {props.usname} !</Title>
+       
       <MyComponent/>
     </SafeAreaView>
+  
+  </>
   );
 }
 
@@ -27,36 +31,19 @@ class MyComponent extends React.Component {
     expanded: true
   }
 
-  _handlePress = () =>
-    this.setState({
-      expanded: !this.state.expanded
-    });
+ 
 
   render() {
     return (
-      <List.Section title="Gry">
-        
-        <List.Accordion
-      
-          theme={theme}
-          title="Film nr 1"
-          left={props => <List.Icon {...props} icon="more" />}
-        >
-          <List.Item title="First item" right={props => <Text> napis</Text>} />
-         
-          <List.Item title="Second item" right={props => <Text> napis</Text>} />
-         
-        </List.Accordion>
-
-        <List.Accordion
-          title="Uncontrolled Accordion"
-          left={props => <List.Icon {...props} icon="more" />}
-        >
-         <List.Item title="First item" right={props => <Text> napis</Text>} />
-         
-         <List.Item title="Second item" right={props => <Text> napis</Text>} />
-        </List.Accordion>
-      </List.Section>
+      <>
+      <List.Item
+    // onPress={() => Actions.AddMovies({username: this.state.username})}
+    style={{backgroundColor:'#3c6a89',}}
+    title={<Text style={{color:'white'}}> New Game </Text>}
+    description=""
+    left={props => <List.Icon   {...props} icon="playlist-plus"  />}
+  />
+      </>
     );
   }
 }
