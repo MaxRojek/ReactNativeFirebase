@@ -3,7 +3,7 @@ import { Text, View, StyleSheet,SafeAreaView, ScrollView } from 'react-native';
 import {Actions} from 'react-native-router-flux';
 import { List, Checkbox, Icon, Item } from 'react-native-paper';
 import { Avatar, Button, Card, Title, Paragraph, IconButton } from 'react-native-paper';
-
+import Firebase from './Config';
 
 
 function Games(props) {
@@ -22,40 +22,51 @@ function Games(props) {
 
 
 class MyComponent extends React.Component {
-  state = {
-    expanded: true,
-    username:this.props.usname,
-    games:[],
+  
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      expanded: true,
+      username:this.props.usname,
+      games:[],
+    };
   }
+  
+  
+  
+  
 
-  // componentDidMount() {
-  //   const path = '/user/' + this.props.username + '/Games';
+  componentDidMount() {
 
-  //   var query = Firebase.database().ref(path);
-  //   query
-  //     .once('value')
-  //     .then(snapshot => {
-  //       const games= [];
+    const path = '/user/' + this.props.usname + '/Games';
+ 
+    var query = Firebase.database().ref(path);
+    query
+      .once('value')
+      .then(snapshot => {
+        const games= [];
 
-  //       snapshot.forEach(childSnapshot => {
-  //         const item = childSnapshot.val();
-  //         item.key = childSnapshot.key;
-  //         // console.log(item)
-  //         movies.push({
-  //           title: item.title,
-  //           uri: item.uri,
-  //           year: item.year,
-  //           plot: item.plot,
-  //           rate: item.rateing,
-  //         });
-  //       });
+        snapshot.forEach(childSnapshot => {
+          const item = childSnapshot.val();
+         
+          item.key = childSnapshot.key;
+          // console.log(item)
+          games.push({
+            title: item.title,
+            uri: item.uri,
+            year: item.year,
+            description: item.description,
+            rate: item.rateing,
+          });
+        });
 
-  //       this.setState({games});
-  //     })
-  //     .catch(error => {
-  //       console.error(error);
-  //     });
-  // }
+        this.setState({games});
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }
 
   render() {
     return (
@@ -71,34 +82,24 @@ class MyComponent extends React.Component {
       
       <ScrollView style={styles.scrollView}>
       
-      <Card style={styles.item2}>
-    <Card.Title title="Card Title" subtitle="Card Subtitle"  />
-    <Card.Content>
-      <Title>Card title</Title>
-      <Paragraph>Card content</Paragraph>
-    </Card.Content>
-    <Card.Cover source={{ uri: 'https://picsum.photos/700' }} />
-    <Card.Actions>
-      <Button onPress={()=>console.log('edit')}><Text style={{color:'white'}}> New Game </Text></Button>
      
-    </Card.Actions>
-  </Card>
 
- {/* {this.state.movies.map((item, index) => (
+ {this.state.games.map((item, index) => (
             <GameDetails
               key={index}
               title={item.title}
               image={item.uri}
               date={item.year}
+              description={item.description}
               rate={item.rate}
              // more={() => this.moreDetails(item.title, item.year)} //tutaj edit
             />
-          ))} */}
+          ))}
 
 <GameDetails
               key='1'
               title='cos'
-            
+            description="description"
               date='cos'
               rate='cos'
              // more={() => this.moreDetails(item.title, item.year)} //tutaj edit
@@ -121,15 +122,15 @@ function GameDetails(props){
       title={props.title}
       subtitle={props.date}
       left={props => (
-        <IconButton icon="movie-outline" color={'black'} size={30} />
+        <IconButton icon="gamepad-variant" color={'black'} size={30} />
       )}
     />
 
     <Card.Content>
     <Title>Card title</Title>
-      <Paragraph>Card content</Paragraph>
+      <Paragraph>{props.description}</Paragraph>
     </Card.Content>
-    <Card.Cover source={{ uri: 'https://picsum.photos/700' }} />
+    <Card.Cover source={{ uri: props.image }} />
     <Card.Actions>
       
     <Button
