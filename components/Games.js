@@ -92,7 +92,8 @@ class MyComponent extends React.Component {
               date={item.year}
               description={item.description}
               rate={item.rate}
-             // more={() => this.moreDetails(item.title, item.year)} //tutaj edit
+             edit={() => Actions.NewGame({username: this.props.usname })}
+              // more={() => this.moreDetails(item.title, item.year)} //tutaj edit
             />
           ))}
 
@@ -137,7 +138,7 @@ function GameDetails(props){
         style={{backgroundColor: '#003f5c', marginVertical: 10}}
         color={'white'}
         mode="Contained "
-        //onPress={props.more}
+        onPress={props.edit}
         >
         Edit
       </Button>

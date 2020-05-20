@@ -132,6 +132,12 @@ class MyComponent extends React.Component {
               source={{uri: this.state.detailsMovie.Poster}}
             />
           </View>
+          
+          <Title> <Text style={{color: 'white'}}> {this.state.detailsMovie.Genre} </Text></Title>
+          
+          <Paragraph style={{marginHorizontal: 50}}><Text style={{color: 'white'}}> {this.state.detailsMovie.Plot} </Text></Paragraph>
+     
+      
         </Modal>
       </>
     );
@@ -192,12 +198,12 @@ function Moviedetails(props) {
 const styles = StyleSheet.create({
   imgContainer: {
     flexDirection: 'row',
-    backgroundColor: 'black',
+    
   },
   image: {
     resizeMode: 'contain',
     flex: 1,
-    aspectRatio: 0.6, // Your aspect ratio
+    aspectRatio: 1, // Your aspect ratio
     width: '100%',
   },
   /////////////
@@ -254,9 +260,9 @@ const styles = StyleSheet.create({
   },
 
   modal: {
-    flex: 1,
-    justifyContent: 'flex-start',
-    alignItems: 'center',
+    // flex: 1,
+    // justifyContent: 'flex-start',
+    // alignItems: 'center',
     backgroundColor: '#003f5c',
   },
 

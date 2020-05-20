@@ -134,7 +134,9 @@ fetch(link)
         <View style={styles.imgContainer}>
         <Image style={styles.image} source={{ uri: this.state.detailsSeries.Poster }}  />
     </View>
-  
+    <Title> <Text style={{color: 'white'}}> {this.state.detailsSeries.Genre} </Text></Title>
+          
+          <Paragraph style={{marginHorizontal: 50}}><Text style={{color: 'white'}}> {this.state.detailsSeries.Plot} </Text></Paragraph>
   
         </Modal>
      
@@ -206,7 +208,7 @@ const styles = StyleSheet.create({
 image: {
     resizeMode: 'contain',
     flex: 1,
-    aspectRatio: 0.6, // Your aspect ratio
+    aspectRatio: 1, // Your aspect ratio
     width: '100%'
 },
   /////////////
@@ -268,9 +270,9 @@ image: {
   },
 
   modal: {
-    flex: 1,
-    justifyContent: 'flex-start',
-    alignItems: 'center',
+    // flex: 1,
+    // justifyContent: 'flex-start',
+    // alignItems: 'center',
     backgroundColor: '#003f5c',
   },
 
