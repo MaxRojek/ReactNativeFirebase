@@ -149,7 +149,7 @@ function Moviedetails(props) {
       );
     }
   } else {
-    fields.push(<Text style={{color: 'white'}}> Film nieoceniony </Text>);
+    fields.push(<Text style={{color: 'white'}}> Brak oceny </Text>);
   }
   return (
     <Card style={styles.item2} theme={theme}>

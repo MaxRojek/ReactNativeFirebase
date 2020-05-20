@@ -16,6 +16,8 @@ import Series from './components/Series.js';
 import SignIn from './components/SignIn.js';
 import AddMovies from './components/AddMovie.js';
 import AddSeries from './components/AddSeries.js';
+import NewGame from './components/AddNewGame.js';
+import NewBook from './components/AddNewBook.js';
 import {YellowBox} from 'react-native';
 YellowBox.ignoreWarnings(['Setting a timer']);
 YellowBox.ignoreWarnings(['Animated: `useNativeDriver` was not specified.']);
@@ -82,6 +84,19 @@ export default class App extends React.Component {
             navigationBarStyle={{backgroundColor: '#3c6a89'}}
             component={AddSeries}
             title="AddSeries"
+          />
+       
+        <Scene
+            key="NewGame"
+            navigationBarStyle={{backgroundColor: '#3c6a89'}}
+            component={NewGame}
+            title="Add Game"
+          />
+          <Scene
+            key="NewBook"
+            navigationBarStyle={{backgroundColor: '#3c6a89'}}
+            component={NewBook}
+            title="Add Book"
           />
         </Scene>
       </Router>
