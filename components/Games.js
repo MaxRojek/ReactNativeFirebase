@@ -97,14 +97,7 @@ class MyComponent extends React.Component {
             />
           ))}
 
-<GameDetails
-              key='1'
-              title='cos'
-            description="description"
-              date='cos'
-              rate='cos'
-             // more={() => this.moreDetails(item.title, item.year)} //tutaj edit
-            />
+
       </ScrollView>
       
       

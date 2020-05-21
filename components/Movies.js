@@ -62,8 +62,9 @@ class MyComponent extends React.Component {
         snapshot.forEach(childSnapshot => {
           const item = childSnapshot.val();
           item.key = childSnapshot.key;
-          // console.log(item)
+          
           movies.push({
+            id: item.key,
             title: item.title,
             uri: item.uri,
             year: item.year,
@@ -78,6 +79,16 @@ class MyComponent extends React.Component {
       });
   }
 
+  deleteMovie = (id)=>{
+    const adress = '/user/' + this.props.username + '/Movies/';
+    
+    
+    
+    Firebase.database().ref(adress+id).remove();
+    
+    console.log("id2"+id)
+  }
+  
   moreDetails = (text, year) => {
     const pass = text + 'cos';
     console.log(pass);
@@ -100,9 +111,22 @@ class MyComponent extends React.Component {
   };
 
   render() {
+    
+    // const cover = [];
+    // {this.state.movies.map((item, index) => (
+    //   cover.push(<Moviedetails
+    //     key={index}
+    //     title={item.title}
+    //     image={item.uri}
+    //     date={item.year}
+    //     rate={item.rate}
+    //     more={() => this.moreDetails(item.title, item.year)}
+    //   />)
+    // ))}
+    
     return (
       <>
-        <ScrollView style={styles.scrollView}>
+        <ScrollView style={styles.scrollView} refreshControl={this.componentDidMount()}>
           <List.Item
             onPress={() => Actions.AddMovies({username: this.state.username})}
             style={{backgroundColor: '#3c6a89'}}
@@ -110,7 +134,7 @@ class MyComponent extends React.Component {
             description=""
             left={props => <List.Icon {...props} icon="playlist-plus" />}
           />
-
+          
           {this.state.movies.map((item, index) => (
             <Moviedetails
               key={index}
@@ -119,6 +143,7 @@ class MyComponent extends React.Component {
               date={item.year}
               rate={item.rate}
               more={() => this.moreDetails(item.title, item.year)}
+              delete={() => this.deleteMovie(item.id)}
             />
           ))}
         </ScrollView>
@@ -169,7 +194,7 @@ function Moviedetails(props) {
 
       <Card.Content>
         <Button
-          style={{backgroundColor: '#003f5c', marginVertical: 10}}
+          style={{backgroundColor: '#003f5c', marginVertical: 10, width:'100%'}}
           color={'white'}
           mode="Contained "
           onPress={props.more}>
@@ -177,20 +202,25 @@ function Moviedetails(props) {
         </Button>
       </Card.Content>
       <Card.Cover
-        style={{width: 330, height: 400, borderRadius: 10}}
+        style={{width: 350, height: 400, borderRadius: 10}}
         source={{uri: props.image}}
       />
       <Card.Actions>
-        {fields}
+      {fields}
         <Text style={styles.txt}>{props.rate}/5</Text>
-        {/* <IconButton
-              icon="dots-vertical"
+        
+         
+        <IconButton
+              icon="trash-can-outline"
               color={'white'}
               size={30}
-             onPress={props.more}
+             onPress={props.delete}
            
-            /> */}
+            />
+           
+
       </Card.Actions>
+      
     </Card>
   );
 }

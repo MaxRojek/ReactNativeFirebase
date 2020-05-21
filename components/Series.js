@@ -45,6 +45,7 @@ query.once("value")
           item.key = childSnapshot.key;
            // console.log(item)
           series.push({
+            id: item.key,
             title: item.title,
             uri: item.uri,
             year: item.year,
@@ -62,7 +63,15 @@ query.once("value")
 }
   
   
+deleteMovie = (id)=>{
+  const adress = '/user/' + this.props.username + '/Series/';
   
+  
+  
+  Firebase.database().ref(adress+id).remove();
+  
+  console.log("id2"+id)
+}
   
 
 moreDetails = (text,year) =>{
@@ -94,11 +103,11 @@ fetch(link)
   render() {
     return (
      <>
-      <ScrollView style={styles.scrollView}>
+      <ScrollView style={styles.scrollView} refreshControl={this.componentDidMount()} >
  <List.Item
     onPress={() => Actions.AddSeries({username: this.state.username})}
     style={{backgroundColor:'#3c6a89',}}
-    title="Add Series"
+    title="Add TV show"
     description=""
     left={props => <List.Icon   {...props} icon="playlist-plus"  />}
   />
@@ -114,6 +123,8 @@ fetch(link)
             date={item.year}
             rate={item.rate}
             more={() => this.moreDetails(item.title,item.year)}
+            
+            delete={() => this.deleteMovie(item.id)}
             />
               
             
@@ -136,7 +147,7 @@ fetch(link)
     </View>
     <Title> <Text style={{color: 'white'}}> {this.state.detailsSeries.Genre} </Text></Title>
           
-          <Paragraph style={{marginHorizontal: 50}}><Text style={{color: 'white'}}> {this.state.detailsSeries.Plot} </Text></Paragraph>
+          <Paragraph style={{marginHorizontal: 50,flexDirection:'row'}}><Text style={{color: 'white',flex: 1, flexWrap: 'wrap'}}> {this.state.detailsSeries.Plot} </Text></Paragraph>
   
         </Modal>
      
@@ -185,7 +196,13 @@ function Seriesdetails(props) {
              onPress={props.more}
            
             /> */}
-     
+      <IconButton
+              icon="trash-can-outline"
+              color={'white'}
+              size={30}
+             onPress={props.delete}
+           
+            />
   </Card.Actions>
  
   </Card>

@@ -126,7 +126,7 @@ class AddMovies extends React.Component {
           ref={'modal1'}
           swipeToClose={this.state.swipeToClose}>
           <Text style={styles.text}>
-            Oceń film => {this.state.pickedMovietitle}
+            Rate movie 
           </Text>
           <InputSpinner
 	max={5}

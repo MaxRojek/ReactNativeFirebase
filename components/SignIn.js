@@ -55,6 +55,7 @@ export default class Signin extends React.Component {
         .catch(error => this.setState({errorMessage: error.message}));
     }
     this.createInDB(Name)
+     Actions.Login()
   };
   render() {
     return (
@@ -76,6 +77,7 @@ export default class Signin extends React.Component {
         </View>
         <View style={styles.inputView}>
           <TextInput
+          secureTextEntry={true}
             style={styles.inputText}
             placeholder="Password"
             placeholderTextColor="#003f5c"
